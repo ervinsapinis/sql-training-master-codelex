@@ -13,25 +13,50 @@ import { tableInfo, indexList } from "../src/queries/table-info";
 
 const CREATE_MOVIES_TABLE = ``;
 
-const CREATE_MOVIE_RATINGS_TABLE = ``;
+const CREATE_MOVIE_RATINGS_TABLE = `create table ${MOVIE_RATINGS}(
+  user_id integer NOT NULL,
+  movie_id integer NOT NULL,
+  rating real NOT NULL,
 
-const CREATE_ACTORS_TABLE = ``;
+)`;
 
-const CREATE_KEYWORDS_TABLE = ``;
 
-const CREATE_DIRECTORS_TABLE = ``;
+const CREATE_ACTORS_TABLE = `create table ${ACTORS}{
+  id integer NOT NULL primary key,
+  full_name NOT NULL primary key,
+}`;
 
-const CREATE_GENRES_TABLE = ``;
+const CREATE_KEYWORDS_TABLE = `create table ${KEYWORDS}{
+  id integer NOT NULL primary key,
+  keyword NOT NULL primary key,
+}`;
 
-const CREATE_PRODUCTION_COMPANIES_TABLE = ``;
+const CREATE_DIRECTORS_TABLE = `create table ${DIRECTORS}{
+  id integer NOT NULL primary key,
+  full_name NOT NULL primary key,
+}`;
 
-const CREATE_INDEX_MOVIES_RELEASE_DATE = ``;
+const CREATE_GENRES_TABLE = `create table ${GENRES}{
+  id integer NOT NULL primary key,
+  genre NOT NULL primary key,
+}`;
 
-const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = ``;
+const CREATE_PRODUCTION_COMPANIES_TABLE = `create table ${PRODUCTION_COMPANIES}{
+  id integer NOT NULL primary key,
+  company_name NOT NULL primary key,
+}`;
 
-const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = ``;
+const CREATE_INDEX_MOVIES_RELEASE_DATE = `create index movies_release_date_idx
+ON ${MOVIES} (release_date)`;
 
-const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = ``;
+const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = `create index movies_ratings_time_created_idx
+ON ${MOVIE_RATINGS} (time_created)`;
+
+const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = `create unique index movies_imdb_id_unq_idx
+ON ${MOVIES} (imdb_id)`;
+
+const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = `create unique index keywords_imdb_id_unq_idx
+ON ${MOVIES} (imdb_id)`;
 
 const CREATE_UNIQUE_INDEX_GENRES_GENRE = ``;
 
