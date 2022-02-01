@@ -59,11 +59,35 @@ const insertProductionCompanies = (companies: string[]) => {
 
 const insertMovies = (movies: Movie[]) => {
   return (
-    `insert into movies (
-      imdb_id, popularity, budget, budget_adjusted, revenue, revenue_adjusted, original_title, homepage, tagline, overview, rntime, release_date
-    )` + movies.map(movie => `('${escape(movie.imdbId)}', ${movie.popularity}, ${movie.budget}, ${movie.budget}, ${movie.budgetAdjusted}, ${movie.revenue}, ${movie.revenueAdjusted}, '${escape(movie.originalTitle)}')
-  )
+    `insert into movies (imdb_id,
+       popularity,
+       budget,
+       budget_adjusted,
+       revenue,
+       revenue_adjusted,
+       original_title,
+       homepage,
+       tagline,
+       overview,
+       runtime,
+       release_date)
+       values` +
+       movies.map(movie =>
+         `('${escape(movie.imdbId)}',
+         ${movie.popularity},
+         ${movie.budget},
+         ${movie.budgetAdjusted},
+         ${movie.revenue},
+         ${movie.revenueAdjusted},
+         '${escape(movie.originalTitle)}',
+         '${escape(movie.homepage)}',
+         '${escape(movie.tagline?movie.tagline :' ')}',
+         '${escape(movie.overview)}',
+         ${movie.runtime},
+         '${escape(movie.releaseDate)}')`).join(",")
+  );
 };
+
 
 describe("Insert Flat Data", () => {
   let db: Database;
