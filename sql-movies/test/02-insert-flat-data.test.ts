@@ -88,7 +88,6 @@ const insertMovies = (movies: Movie[]) => {
   );
 };
 
-
 describe("Insert Flat Data", () => {
   let db: Database;
 
