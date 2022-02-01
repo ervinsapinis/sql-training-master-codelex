@@ -1,5 +1,5 @@
 import { Database } from "../src/database";
-import { MOVIES } from "../src/table-names";
+import { MOVIES, MOVIE_RATINGS } from "../src/table-names";
 import { minutes } from "./utils";
 
 describe("Simple Queries", () => {
@@ -33,7 +33,7 @@ describe("Simple Queries", () => {
     async done => {
       const query = `
       SELECT COUNT(*) AS count
-      FROM movies
+      FROM ${MOVIES}
       WHERE budget > 100000000 AND release_date > 2009;`;
       const result = await db.selectSingleRow(query);
 
@@ -49,7 +49,7 @@ describe("Simple Queries", () => {
     async done => {
       const query = `
       SELECT budget, original_title, revenue
-      FROM movies
+      FROM ${MOVIES}
       ORDER BY budget DESC
       LIMIT 3;`;
       const result = await db.selectMultipleRows(query);
@@ -82,7 +82,7 @@ describe("Simple Queries", () => {
     async done => {
       const query = `
       SELECT COUNT(*) AS count
-      FROM movies
+      FROM ${MOVIES}
       WHERE homepage LIKE 'https%';
       `;
       const result = await db.selectSingleRow(query);
@@ -100,7 +100,7 @@ describe("Simple Queries", () => {
       const query = `
       SELECT COUNT(*) AS count,
       STRFTIME('%Y', release_date) AS year
-      FROM movies
+      FROM ${MOVIES}
       GROUP BY STRFTIME('%Y', release_date)
       ORDER BY year DESC;
       `;
@@ -132,7 +132,7 @@ describe("Simple Queries", () => {
     async done => {
       const query = `
       SELECT count(*) AS count, user_id
-      FROM movie_ratings
+      FROM ${MOVIE_RATINGS}
       GROUP BY user_id
       ORDER BY count DESC
       LIMIT 3;
@@ -164,7 +164,7 @@ describe("Simple Queries", () => {
     async done => {
       const query = `
       SELECT COUNT(*) as count, STRFTIME('%m', time_created) AS month
-      FROM movie_ratings
+      FROM ${MOVIE_RATINGS}
       GROUP BY STRFTIME('%m', time_created)
       ORDER BY count DESC;
       `;
